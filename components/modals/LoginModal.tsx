@@ -3,6 +3,9 @@ import React, { useCallback, useState } from 'react'
 import Input from '../Input';
 import Modal from '../Modal';
 import useRegisterModal from '@/hooks/useRegisterModal';
+import { signIn } from 'next-auth/react';
+
+// ! important 
 
 
 const LoginModal = () => {
@@ -29,7 +32,11 @@ const LoginModal = () => {
         try {
             setIsLoading(true);
 
-            //TODO: add login
+            await signIn('credentials', {
+                email,
+                password,
+                
+            });
 
             loginModal.onClose();
 
@@ -40,7 +47,7 @@ const LoginModal = () => {
             setIsLoading(false);
         }
 
-    }, [loginModal]);
+    }, [loginModal, email, password]);
 
     const bodyContent = (
         <div className="flex flex-col gap-4">
@@ -52,6 +59,7 @@ const LoginModal = () => {
             />
             <Input
                 placeholder="Password"
+                type="password"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
                 disabled={isLoading}
@@ -60,12 +68,12 @@ const LoginModal = () => {
     )
 
     const footerContent = (
-        <div className="text-neutral-400 text-center mt-4">
-          <p>
-           First TIme using Twitter
+        <div className="text-neutral-400 flex justify-center  text-center mt-4">
+          <p className='gap-4'>
+           First Time using Twitter
             <span
               onClick={onToggle}
-              className="text-white cursor-pointer hover:underline"
+              className="text-white cursor-pointer  hover:underline"
             >
               Create an account
             </span>
