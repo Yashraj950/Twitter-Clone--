@@ -4,7 +4,7 @@ import useRegisterModal from "@/hooks/useRegisterModal";
 import Input from "../Input";
 import Modal from "../Modal";
 import axios from "axios";
-import toast from "react-hot-toast";
+import {toast} from "react-hot-toast";
 import { signIn } from "next-auth/react";
 
 // ! important 
@@ -29,6 +29,7 @@ const RegisterModal = () => {
     loginModal.onOpen();
   }, [isLoading, registerModal, loginModal]);
 
+
   const onSubmit = useCallback(async () => {
     try {
       setIsLoading(true);
@@ -37,10 +38,10 @@ const RegisterModal = () => {
         email,
        password,
         username,
-         name,
+         name
       });
 
-      toast.success("Account created successfully");
+      toast.success("Account created.");
 
       signIn("credentials", {
         email,
