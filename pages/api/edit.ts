@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/libs/prismadb";
 
 export default async function handler(
-    req: NextApiRequest,
+    req: NextApiRequest, 
     res: NextApiResponse
 ) {
     if (req.method !== 'PATCH') {

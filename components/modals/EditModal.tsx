@@ -7,6 +7,7 @@ import {  useCallback, useEffect, useState } from "react"
 import toast from "react-hot-toast"
 import Modal from "../Modal"
 import Input from "../Input"
+import ImageUpload from "../ImageUpload"
 
 
 
@@ -39,7 +40,7 @@ const EditModal = () => {
         try {
             setIsLoading(true)
 
-            await axios.patch('/api/edit', {
+            await axios.patch('/api/edit', { 
                 name,
                 username,
                 bio,
@@ -61,8 +62,21 @@ const EditModal = () => {
         }
     }, [name, username, bio, profileImage, coverImage, editModal, mutateFetchedUser])
 
-    const bodyContent = (   
+    const bodyContent = ( 
+        
+      
         <div className="flex flex-col gap-4">
+              <ImageUpload 
+                value={profileImage}
+                disabled={isLoading}
+                onChange={(image) => setProfileImage(image)} 
+                label="Upload profile image"/>
+                              <ImageUpload 
+                value={coverImage}
+                disabled={isLoading}
+                onChange={(image) => setCoverImage (image)} 
+                label="Upload cover image"/>
+
             <Input
                 placeholder="Name"
                 onChange={(e) => setName(e.target.value)}
@@ -95,58 +109,6 @@ const EditModal = () => {
             title="Edit Profile"
             isOpen={editModal.isOpen}
             onClose={editModal.onClose}
-            // {/* <form onSubmit={onSubmit}>
-            //     <div className="space-y-12">
-            //         <div className="border-b border-gray-900/10 pb-12">
-            //             <h2 className="text-base font-semibold leading-7 text-gray-900">
-            //                 Profile
-            //             </h2>
-            //             <p className="mt-1 text-sm leading-6 text-gray-600">
-            //                 Edit your public information
-            //             </p>
-            //             <div className="mt-10 flex flex-col gap-7">
-            //                 <Input
-            //                     disabled={isLoading}
-            //                     onChange={(e) => setName(e.target.value)}
-            //                     value={name}
-            //                     id="name"
-            //                     type="text"
-            //                     label="Name"
-            //                 />
-            //                 <Input
-            //                     disabled={isLoading}        
-            //                     onChange={(e) => setUsername(e.target.value)}
-            //                     value={username}
-            //                     id="username"
-            //                     type="text"
-            //                     label="Username"
-            //                 />
-            //                 <Input
-            //                     disabled={isLoading}
-            //                     onChange={(e) => setBio(e.target.value)}
-            //                     value={bio}
-            //                     id="bio"
-            //                     type="text"
-            //                     label="Bio"
-            //                 />
-            //             </div>
-            //         </div>
-            //     </div>                
-
-            //     <div className="mt-6 flex items-center justify-end gap-x-6">
-            //         <Button
-            //             disabled={isLoading}
-            //             label="Cancel"
-            //             onClick={editModal.onClose}
-            //             secondary
-            //         />
-            //         <Button
-            //             disabled={isLoading}
-            //             label="Save"
-            //             type="submit"
-            //         />
-            //     </div>
-            // </form> */
         />
     )
 
