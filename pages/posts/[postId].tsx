@@ -1,5 +1,6 @@
 import Form from "@/components/Form";
 import Header from "@/components/Header";
+import CommentFeed from "@/components/Posts/CommentFeed";
 import PostItem from "@/components/Posts/PostItem";
 import usePost from "@/hooks/usePost";
 import { useRouter } from "next/router";
@@ -13,7 +14,7 @@ const PostView = () => {
 
     if (isLoading || !fetchedPost) {
         return (
-            <div className="flex items-center justify-center p-4">
+            <div className="flex items-center justify-center h-full">
                 <ClipLoader color="lightblue" size={80} />
             </div>
         )
@@ -24,6 +25,8 @@ const PostView = () => {
             <PostItem data={fetchedPost}  />
             <Form postId={postId as string}
              isComment placeholder="Tweet your reply" />
+
+             <CommentFeed comments={fetchedPost.comments} />            
         </>
     )
 }
