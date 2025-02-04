@@ -2,13 +2,14 @@ import useSWR from "swr";
 
 import fetcher from "@/libs/fetcher";
 
-const useUsers = (useId: string) => {
+const uesPosts = (userId?: string) => {
+    const url = userId ? `/api/posts?userId=${userId}` : "/api/posts";
     const {
         data,
         error,
         isLoading,
         mutate
-    } = useSWR("/api/users", fetcher);
+    } = useSWR( url, fetcher);
 
     return {
         data,
@@ -18,4 +19,4 @@ const useUsers = (useId: string) => {
     };
 };
 
-export default useUsers;
+export default uesPosts;
